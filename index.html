@@ -79,6 +79,95 @@
     }
     .icon-btn:hover { background: var(--btn-border); border-color: var(--accent); }
 
+    /* ══ ACCOUNT BUTTON ══ */
+    .account-btn {
+      background: var(--btn-bg);
+      color: var(--text);
+      border: 1px solid var(--btn-border);
+      border-radius: 0.5rem;
+      padding: 0.25rem 0.55rem 0.25rem 0.35rem;
+      cursor: pointer;
+      display: flex; align-items: center; gap: 0.4rem;
+      transition: background 0.2s, border-color 0.2s;
+      flex-shrink: 0;
+      font-size: 0.75rem;
+      font-family: inherit;
+    }
+    .account-btn:hover { background: var(--btn-border); border-color: var(--accent); }
+    .account-avatar {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.65rem; color: #fff;
+      flex-shrink: 0;
+    }
+    .account-name {
+      max-width: 90px;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+      color: var(--text);
+    }
+
+    /* ══ ACCOUNT DROPDOWN ══ */
+    .account-dropdown-wrap {
+      position: relative;
+    }
+    .account-dropdown {
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      background: var(--card);
+      border: 1px solid var(--btn-border);
+      border-radius: 0.75rem;
+      min-width: 220px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+      z-index: 200;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-6px) scale(0.97);
+      transition: opacity 0.2s ease, transform 0.2s cubic-bezier(.22,1,.36,1);
+    }
+    .account-dropdown.open {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0) scale(1);
+    }
+    .acct-header {
+      padding: 0.75rem 0.9rem 0.6rem;
+      border-bottom: 1px solid var(--btn-border);
+    }
+    .acct-header-name {
+      font-weight: 700;
+      font-size: 0.82rem;
+      color: var(--text);
+      margin-bottom: 0.1rem;
+    }
+    .acct-header-email {
+      font-size: 0.68rem;
+      color: var(--text-sub);
+    }
+    .acct-divider { height: 1px; background: var(--btn-border); }
+    .acct-action {
+      width: 100%;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.8rem;
+      padding: 0.6rem 0.9rem;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      transition: background 0.15s;
+    }
+    .acct-action:hover { background: var(--btn-bg); }
+    .acct-action svg { flex-shrink: 0; opacity: 0.7; }
+    .acct-action.danger { color: #e05555; }
+    .acct-action.danger svg { opacity: 1; }
+    .acct-action.danger:hover { background: rgba(224,85,85,0.1); }
+
     /* ══ MESSAGES ══ */
     #chatWindow {
       flex: 1;
@@ -153,7 +242,6 @@
     }
     .copy-code-btn:hover { color: var(--accent); border-color: var(--accent); }
 
-    /* inline code */
     .msg.ai code:not(pre code) {
       background: var(--code-bg);
       border: 1px solid var(--btn-border);
@@ -163,7 +251,6 @@
       font-size: 0.82em;
     }
 
-    /* headings/lists in AI messages */
     .msg.ai h1,.msg.ai h2,.msg.ai h3 { margin: 0.6em 0 0.25em; color: var(--accent); font-size: 0.95em; }
     .msg.ai ul,.msg.ai ol { padding-left: 1.3em; margin: 0.3em 0; }
     .msg.ai li { margin-bottom: 0.2em; }
@@ -291,7 +378,7 @@
     body.theme-blueprint .usage-row { border-radius: 0; border: 2px solid #000; }
     body.theme-blueprint .usage-user-row { border-radius: 0; border: 2px solid #000; }
 
-    /* ══ THEME SYSTEM (copied exactly from barcode gen) ══ */
+    /* ══ THEME SYSTEM ══ */
     .theme-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 100; opacity: 0; pointer-events: none; transition: opacity 0.35s ease; }
     .theme-overlay.open { opacity: 1; pointer-events: all; }
     .theme-panel { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-46%) scale(0.88); z-index: 101; background: var(--card); border: 1px solid rgba(255,255,255,0.09); border-radius: 1.3rem; padding: 1.5rem 1.3rem; width: min(420px, 92vw); box-shadow: 0 30px 80px rgba(0,0,0,0.65); opacity: 0; pointer-events: none; transition: opacity 0.35s ease, transform 0.35s cubic-bezier(.22,1,.36,1); }
@@ -355,8 +442,9 @@
     body.theme-blueprint .theme-panel { border-radius: 0; border: 2px solid #000; box-shadow: 6px 6px 0 #000; }
     body.theme-blueprint .msg.ai pre { border-radius: 0; border: 2px solid #000; }
     body.theme-blueprint .code-header { background: #e8e8e8; }
+    body.theme-blueprint .account-btn { border-radius: 0; border: 2px solid #000; }
+    body.theme-blueprint .account-dropdown { border-radius: 0; border: 2px solid #000; box-shadow: 4px 4px 0 #000; }
 
-    /* hl.js light override for light themes */
     body.theme-mint .msg.ai pre code,
     body.theme-golden .msg.ai pre code,
     body.theme-cherry .msg.ai pre code,
@@ -481,6 +569,7 @@
         <option value="mistralai/mistral-small-3.1-24b-instruct">Mistral Small</option>
       </optgroup>
     </select>
+
     <!-- Usage -->
     <button class="icon-btn" onclick="openUsageModal()" title="Usage &amp; limits">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -499,6 +588,49 @@
         <polygon points="12,2 22,20 2,20" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" fill="none"/>
       </svg>
     </button>
+
+    <!-- ACCOUNT SWITCHER -->
+    <div class="account-dropdown-wrap" id="accountWrap">
+      <button class="account-btn" id="accountBtn" onclick="toggleAccountDropdown()" title="Account">
+        <div class="account-avatar" id="accountAvatar">?</div>
+        <span class="account-name" id="accountName">Account</span>
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.5;flex-shrink:0">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </button>
+      <div class="account-dropdown" id="accountDropdown">
+        <div class="acct-header">
+          <div class="acct-header-name" id="ddName">Loading…</div>
+          <div class="acct-header-email" id="ddEmail"></div>
+        </div>
+        <button class="acct-action" onclick="switchAccount()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          Switch account
+        </button>
+        <button class="acct-action" onclick="signInToPuter()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+            <polyline points="10 17 15 12 10 7"/>
+            <line x1="15" y1="12" x2="3" y2="12"/>
+          </svg>
+          Sign in to Puter
+        </button>
+        <div class="acct-divider"></div>
+        <button class="acct-action danger" onclick="signOutOfPuter()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+          Sign out
+        </button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -535,15 +667,12 @@ function applyTheme(name, card) {
   ALL_THEMES.forEach(t => document.body.classList.remove('theme-' + t));
   document.body.classList.add('theme-' + name);
   currentTheme = name;
-
-  // Swap hljs stylesheet
   const hlLink = document.getElementById('hlThemeLink');
   if (LIGHT_THEMES.includes(name)) {
     hlLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css';
   } else {
     hlLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css';
   }
-
   document.querySelectorAll('.theme-card').forEach(c => c.classList.remove('active'));
   if (card) card.classList.add('active');
   try { localStorage.setItem('ai_chat_theme', name); } catch(e) {}
@@ -555,7 +684,83 @@ document.addEventListener('DOMContentLoaded', () => {
   try { saved = localStorage.getItem('ai_chat_theme') || 'forest'; } catch(e) {}
   const card = document.querySelector(`.theme-card[data-theme="${saved}"]`);
   applyTheme(saved, card);
+  loadAccountInfo();
 });
+
+/* ══════════════ ACCOUNT SWITCHER ══════════════ */
+let accountDropdownOpen = false;
+
+function toggleAccountDropdown() {
+  accountDropdownOpen = !accountDropdownOpen;
+  document.getElementById('accountDropdown').classList.toggle('open', accountDropdownOpen);
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', (e) => {
+  if (accountDropdownOpen && !document.getElementById('accountWrap').contains(e.target)) {
+    accountDropdownOpen = false;
+    document.getElementById('accountDropdown').classList.remove('open');
+  }
+});
+
+async function loadAccountInfo() {
+  try {
+    const user = await puter.auth.getUser();
+    const name = user.username || user.email || 'Puter User';
+    const initial = name[0].toUpperCase();
+    document.getElementById('accountAvatar').textContent = initial;
+    document.getElementById('accountName').textContent = name;
+    document.getElementById('ddName').textContent = name;
+    document.getElementById('ddEmail').textContent = user.email || (user.is_temp_user ? 'Guest account' : '');
+  } catch (e) {
+    document.getElementById('accountAvatar').textContent = '?';
+    document.getElementById('accountName').textContent = 'Not signed in';
+    document.getElementById('ddName').textContent = 'Not signed in';
+    document.getElementById('ddEmail').textContent = '';
+  }
+}
+
+async function signOutOfPuter() {
+  closeAccountDropdown();
+  try {
+    await puter.auth.signOut();
+    // Reset UI
+    document.getElementById('accountAvatar').textContent = '?';
+    document.getElementById('accountName').textContent = 'Not signed in';
+    document.getElementById('ddName').textContent = 'Not signed in';
+    document.getElementById('ddEmail').textContent = '';
+  } catch (e) {
+    alert('Sign out failed: ' + (e?.message || e));
+  }
+}
+
+async function signInToPuter() {
+  closeAccountDropdown();
+  try {
+    await puter.auth.signIn();
+    await loadAccountInfo();
+  } catch (e) {
+    // User closed the dialog — that's fine
+  }
+}
+
+async function switchAccount() {
+  closeAccountDropdown();
+  try {
+    // Sign out first, then immediately sign in
+    await puter.auth.signOut();
+    await puter.auth.signIn();
+    await loadAccountInfo();
+  } catch (e) {
+    // If sign-in was cancelled just reload account info
+    await loadAccountInfo();
+  }
+}
+
+function closeAccountDropdown() {
+  accountDropdownOpen = false;
+  document.getElementById('accountDropdown').classList.remove('open');
+}
 
 /* ══════════════ MARKDOWN / CODE RENDERER ══════════════ */
 function escapeHtml(s) {
@@ -563,7 +768,6 @@ function escapeHtml(s) {
 }
 
 function renderMarkdown(text) {
-  // Process code blocks first
   const codeBlocks = [];
   let processed = text.replace(/```(\w*)\n?([\s\S]*?)```/g, (_, lang, code) => {
     const idx = codeBlocks.length;
@@ -571,35 +775,24 @@ function renderMarkdown(text) {
     return `%%CODEBLOCK_${idx}%%`;
   });
 
-  // Inline code
   processed = processed.replace(/`([^`]+)`/g, '<code>$1</code>');
-
-  // Bold/italic
   processed = processed.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
   processed = processed.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
   processed = processed.replace(/\*(.+?)\*/g, '<em>$1</em>');
-
-  // Headings
   processed = processed.replace(/^### (.+)$/gm, '<h3>$1</h3>');
   processed = processed.replace(/^## (.+)$/gm, '<h2>$1</h2>');
   processed = processed.replace(/^# (.+)$/gm, '<h1>$1</h1>');
-
-  // HR
   processed = processed.replace(/^---+$/gm, '<hr>');
 
-  // Unordered lists (runs of lines starting with - or *)
   processed = processed.replace(/((?:^[ \t]*[-*] .+\n?)+)/gm, match => {
     const items = match.trim().split('\n').map(l => `<li>${l.replace(/^[ \t]*[-*] /, '')}</li>`).join('');
     return `<ul>${items}</ul>`;
   });
-
-  // Ordered lists
   processed = processed.replace(/((?:^[ \t]*\d+\. .+\n?)+)/gm, match => {
     const items = match.trim().split('\n').map(l => `<li>${l.replace(/^[ \t]*\d+\. /, '')}</li>`).join('');
     return `<ol>${items}</ol>`;
   });
 
-  // Paragraphs: split on double newlines
   const paras = processed.split(/\n{2,}/);
   processed = paras.map(p => {
     p = p.trim();
@@ -609,7 +802,6 @@ function renderMarkdown(text) {
     return `<p>${p.replace(/\n/g, '<br>')}</p>`;
   }).join('\n');
 
-  // Restore code blocks
   codeBlocks.forEach(({ lang, code }, i) => {
     const escapedCode = escapeHtml(code);
     let highlighted;
@@ -620,16 +812,13 @@ function renderMarkdown(text) {
         highlighted = hljs.highlightAuto(code).value;
         if (!lang) lang = '';
       }
-    } catch(e) {
-      highlighted = escapedCode;
-    }
+    } catch(e) { highlighted = escapedCode; }
     const header = `<div class="code-header"><span class="code-lang">${escapeHtml(lang) || 'code'}</span><button class="copy-code-btn" onclick="copyCode(this)">Copy</button></div>`;
     processed = processed.replace(
       `%%CODEBLOCK_${i}%%`,
       `<pre>${header}<code class="language-${escapeHtml(lang)}">${highlighted}</code></pre>`
     );
   });
-
   return processed;
 }
 
@@ -655,18 +844,13 @@ function closeUsageModal() {
 async function loadUsage() {
   const container = document.getElementById('usageContent');
   container.innerHTML = '<div class="usage-loading">Loading...</div>';
-
   try {
-    // Fetch user info + both usage endpoints in parallel
     const [user, monthly, detailed] = await Promise.allSettled([
       puter.auth.getUser(),
       puter.auth.getMonthlyUsage(),
       puter.auth.getDetailedAppUsage()
     ]);
-
     let html = '';
-
-    // User info
     if (user.status === 'fulfilled' && user.value) {
       const u = user.value;
       const initial = (u.username || u.email || '?')[0].toUpperCase();
@@ -678,21 +862,15 @@ async function loadUsage() {
         </div>
       </div>`;
     }
-
-    // Monthly usage
     if (monthly.status === 'fulfilled' && monthly.value) {
       html += renderUsageData('Monthly Usage', monthly.value);
     } else if (monthly.status === 'rejected') {
       html += `<div class="usage-section"><div class="usage-section-label">Monthly Usage</div><div class="usage-row"><div class="usage-row-top"><span class="usage-row-name" style="color:var(--text-sub)">Not available (sign in required)</span></div></div></div>`;
     }
-
-    // Detailed app usage
     if (detailed.status === 'fulfilled' && detailed.value) {
       html += renderUsageData('Detailed App Usage', detailed.value);
     }
-
     container.innerHTML = html || '<div class="usage-loading" style="color:var(--text-sub)">No usage data returned by Puter.</div>';
-
   } catch (err) {
     container.innerHTML = `<div class="usage-loading" style="color:#e05555">Error: ${escapeHtml(String(err?.message || err))}</div>`;
   }
@@ -700,8 +878,6 @@ async function loadUsage() {
 
 function renderUsageData(title, data) {
   let html = `<div class="usage-section"><div class="usage-section-label">${title}</div>`;
-
-  // Try to render known shapes nicely
   if (Array.isArray(data)) {
     if (data.length === 0) {
       html += `<div class="usage-row"><div class="usage-row-top"><span class="usage-row-name" style="color:var(--text-sub)">No data</span></div></div>`;
@@ -709,13 +885,10 @@ function renderUsageData(title, data) {
       data.forEach(item => { html += renderUsageItem(item); });
     }
   } else if (typeof data === 'object' && data !== null) {
-    // Check if it's a flat object of named metrics
     const keys = Object.keys(data);
     const allSimple = keys.every(k => typeof data[k] !== 'object' || data[k] === null);
-
     if (allSimple) {
-      // Render as key-value rows — try to detect used/limit/remaining patterns
-      const usedKey = keys.find(k => /used|count|consumed/i.test(k));
+      const usedKey  = keys.find(k => /used|count|consumed/i.test(k));
       const limitKey = keys.find(k => /limit|max|total|quota/i.test(k));
       if (usedKey && limitKey) {
         const used = Number(data[usedKey]) || 0;
@@ -723,41 +896,27 @@ function renderUsageData(title, data) {
         const pct = limit > 0 ? Math.min(100, (used / limit) * 100) : 0;
         const cls = pct > 90 ? 'danger' : pct > 70 ? 'warn' : '';
         html += `<div class="usage-row">
-          <div class="usage-row-top">
-            <span class="usage-row-name">${title}</span>
-            <span class="usage-row-val">${fmtNum(used)} / ${fmtNum(limit)}</span>
-          </div>
+          <div class="usage-row-top"><span class="usage-row-name">${title}</span><span class="usage-row-val">${fmtNum(used)} / ${fmtNum(limit)}</span></div>
           <div class="usage-bar-track"><div class="usage-bar-fill ${cls}" style="width:${pct.toFixed(1)}%"></div></div>
         </div>`;
-        // Remaining keys
-        keys.filter(k => k !== usedKey && k !== limitKey).forEach(k => {
-          html += simpleRow(k, data[k]);
-        });
+        keys.filter(k => k !== usedKey && k !== limitKey).forEach(k => { html += simpleRow(k, data[k]); });
       } else {
         keys.forEach(k => { html += simpleRow(k, data[k]); });
       }
     } else {
-      // Nested — render each sub-key
       keys.forEach(k => {
         const v = data[k];
-        if (typeof v === 'object' && v !== null) {
-          html += renderUsageItem(v, k);
-        } else {
-          html += simpleRow(k, v);
-        }
+        if (typeof v === 'object' && v !== null) { html += renderUsageItem(v, k); }
+        else { html += simpleRow(k, v); }
       });
     }
   } else {
-    // Scalar
     html += `<div class="usage-row"><div class="usage-row-top"><span class="usage-row-name">${title}</span><span class="usage-row-val">${escapeHtml(String(data))}</span></div></div>`;
   }
-
-  // Always show raw JSON toggle
   html += `<details style="margin-top:0.4rem">
     <summary style="font-size:0.65rem;color:var(--text-sub);cursor:pointer;user-select:none;padding:0.2rem 0">Show raw JSON</summary>
     <div class="usage-raw">${escapeHtml(JSON.stringify(data, null, 2))}</div>
   </details>`;
-
   html += '</div>';
   return html;
 }
@@ -765,13 +924,10 @@ function renderUsageData(title, data) {
 function renderUsageItem(item, label) {
   if (typeof item !== 'object' || item === null) return simpleRow(label || 'value', item);
   const keys = Object.keys(item);
-
-  // Detect used+limit shape
   const usedKey  = keys.find(k => /^(used|count|consumed|value|current)$/i.test(k));
   const limitKey = keys.find(k => /^(limit|max|quota|total|allowed)$/i.test(k));
   const nameKey  = keys.find(k => /^(name|label|type|service|model|resource)$/i.test(k));
   const name     = label || (nameKey ? item[nameKey] : null) || keys[0];
-
   if (usedKey !== undefined && limitKey !== undefined) {
     const used  = Number(item[usedKey])  || 0;
     const limit = Number(item[limitKey]) || 0;
@@ -779,16 +935,11 @@ function renderUsageItem(item, label) {
     const cls   = pct > 90 ? 'danger' : pct > 70 ? 'warn' : '';
     const remaining = limit - used;
     return `<div class="usage-row">
-      <div class="usage-row-top">
-        <span class="usage-row-name">${escapeHtml(String(name))}</span>
-        <span class="usage-row-val">${fmtNum(used)} / ${fmtNum(limit)}</span>
-      </div>
+      <div class="usage-row-top"><span class="usage-row-name">${escapeHtml(String(name))}</span><span class="usage-row-val">${fmtNum(used)} / ${fmtNum(limit)}</span></div>
       <div class="usage-bar-track"><div class="usage-bar-fill ${cls}" style="width:${pct.toFixed(1)}%"></div></div>
       <div style="font-size:0.68rem;color:var(--text-sub);margin-top:0.15rem">${fmtNum(remaining)} remaining · ${pct.toFixed(1)}% used</div>
     </div>`;
   }
-
-  // Fallback — just show all keys as rows under a heading
   let html = `<div class="usage-row"><div class="usage-row-top"><span class="usage-row-name">${escapeHtml(String(name))}</span></div>`;
   keys.filter(k => k !== nameKey).forEach(k => {
     const v = item[k];
@@ -803,10 +954,7 @@ function renderUsageItem(item, label) {
 
 function simpleRow(key, val) {
   return `<div class="usage-row">
-    <div class="usage-row-top">
-      <span class="usage-row-name">${escapeHtml(String(key))}</span>
-      <span class="usage-row-val">${escapeHtml(String(val))}</span>
-    </div>
+    <div class="usage-row-top"><span class="usage-row-name">${escapeHtml(String(key))}</span><span class="usage-row-val">${escapeHtml(String(val))}</span></div>
   </div>`;
 }
 
@@ -818,6 +966,7 @@ function fmtNum(n) {
   return num.toLocaleString();
 }
 
+/* ══════════════ CHAT ══════════════ */
 let chatHistory = [];
 let isStreaming = false;
 
@@ -835,15 +984,13 @@ function scrollBottom() {
   cw.scrollTop = cw.scrollHeight;
 }
 
-function addMessage(role, content, raw) {
+function addMessage(role, content) {
   const cw = document.getElementById('chatWindow');
   const empty = document.getElementById('emptyState');
   if (empty) empty.remove();
-
   const label = document.createElement('div');
   label.className = 'msg-label' + (role === 'user' ? ' right' : '');
   label.textContent = role === 'user' ? 'You' : document.getElementById('modelSelect').selectedOptions[0].text;
-
   const msg = document.createElement('div');
   msg.className = 'msg ' + role;
   if (role === 'ai') {
@@ -851,7 +998,6 @@ function addMessage(role, content, raw) {
   } else {
     msg.textContent = content;
   }
-
   cw.appendChild(label);
   cw.appendChild(msg);
   scrollBottom();
@@ -880,47 +1026,36 @@ async function sendMessage() {
   const input = document.getElementById('userInput');
   const text = input.value.trim();
   if (!text) return;
-
   const model = document.getElementById('modelSelect').value;
-
   input.value = '';
   input.style.height = 'auto';
   isStreaming = true;
   document.getElementById('sendBtn').disabled = true;
-
   addMessage('user', text);
   chatHistory.push({ role: 'user', content: text });
-
   showTyping();
-
   try {
     const resp = await puter.ai.chat(chatHistory, { model, stream: true });
     removeTyping();
-
     const label = document.createElement('div');
     label.className = 'msg-label';
     label.textContent = document.getElementById('modelSelect').selectedOptions[0].text;
     document.getElementById('chatWindow').appendChild(label);
-
     const msg = document.createElement('div');
     msg.className = 'msg ai';
     document.getElementById('chatWindow').appendChild(msg);
-
     let fullText = '';
     for await (const part of resp) {
       fullText += part?.text ?? '';
       msg.innerHTML = renderMarkdown(fullText);
       scrollBottom();
     }
-
     chatHistory.push({ role: 'assistant', content: fullText });
-
   } catch (err) {
     removeTyping();
     const errMsg = addMessage('ai', '');
     errMsg.innerHTML = `<span style="color:#e05555">⚠ Error: ${escapeHtml(err?.message || String(err))}</span>`;
   }
-
   isStreaming = false;
   document.getElementById('sendBtn').disabled = false;
   document.getElementById('userInput').focus();
